@@ -26,31 +26,31 @@ public class US001 {
     @And("Ana sayfa giris ikonuna tiklar")
     public void anaSayfaGirisIkonunaTiklar() {
         homePage.userIcon.click();
-        Driver.wait(1);
+        //Driver.wait(1);
     }
 
     @And("Register butonuna tiklar")
     public void registerButonunaTiklar() {
         homePage.register.click();
-        Driver.wait(1);
+        //Driver.wait(1);
     }
 
     @And("SSN kutusuna uygun ssn girer")
     public void ssnKutusunaUygunSsnGirer() {
         String fakeSSN = faker.random().nextInt(100,899) + "-" + faker.random().nextInt(10,99) + "-" + faker.random().nextInt(1000,9999);
         registerPage.SSN.sendKeys(fakeSSN + Keys.TAB);
-        Driver.wait(1);
+       // Driver.wait(1);
     }
 
     @Then("Hata mesajinin cikmadigini test eder")
     public void hataMesajininCikmadiginiTestEder() {
-        Assert.assertTrue(registerPage.ssnDogrulama.isDisplayed());
-        Driver.wait(1);
+        Assert.assertFalse(registerPage.ssnDogrulama.isDisplayed());
+      //  Driver.wait(1);
     }
 
     @And("Tarayiciyi kapatir")
     public void tarayiciyiKapatir() {
-        Driver.closeDriver();
+       // Driver.closeDriver();
     }
 }
 

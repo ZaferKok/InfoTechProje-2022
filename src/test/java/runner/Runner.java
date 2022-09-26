@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
                   "html:target/cucumber-default-report",
                   "rerun:target/failed.txt"},
 
-        features = "src/test/resources/UI_Features",
+        features = "src/test/resources",
         glue = "stepdefinitions",
-        tags = "@demo",
+        tags = "@demo1",
         dryRun = false
 
 )
