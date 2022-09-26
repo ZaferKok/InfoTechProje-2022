@@ -10,10 +10,10 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import pojo.RegisterPojo;
 import pojo.RegisterResponsePojo;
-import java.util.Locale;
+
 import static utilities.Authentication.tokenGenerate;
 
-public class US001_API {
+public class API_US001 {
 
     RegisterPojo registerExpected = new RegisterPojo();
     Faker faker = new Faker();

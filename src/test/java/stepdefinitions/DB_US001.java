@@ -7,7 +7,7 @@ import utilities.ConfigReader;
 
 import java.sql.*;
 
-public class US1234_Database {
+public class DB_US001 {
 
     String url = "jdbc:postgresql://localhost:5432/school"; // Connection Url = jdbc:postgresql://+HOST+":"+PORT+"/DATABASENAME";
     String username = ConfigReader.getProperty("db_username");

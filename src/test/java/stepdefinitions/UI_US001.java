@@ -7,14 +7,15 @@ import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import pages.HomePage;
+import pages.PageInitializer;
 import pages.RegisterPage;
 import utilities.ConfigReader;
 import utilities.Driver;
 
-public class US001 {
+public class UI_US001 {
 
-    HomePage homePage = new HomePage();
-    RegisterPage registerPage = new RegisterPage();
+//    HomePage homePage = new HomePage();
+//    RegisterPage registerPage = new RegisterPage();
     Faker faker = new Faker();
 
 
@@ -25,32 +26,26 @@ public class US001 {
 
     @And("Ana sayfa giris ikonuna tiklar")
     public void anaSayfaGirisIkonunaTiklar() {
-        homePage.userIcon.click();
+        PageInitializer.homePage.userIcon.click();
         //Driver.wait(1);
     }
 
     @And("Register butonuna tiklar")
     public void registerButonunaTiklar() {
-        homePage.register.click();
+        PageInitializer.homePage.register.click();
         //Driver.wait(1);
     }
 
     @And("SSN kutusuna uygun ssn girer")
     public void ssnKutusunaUygunSsnGirer() {
         String fakeSSN = faker.random().nextInt(100,899) + "-" + faker.random().nextInt(10,99) + "-" + faker.random().nextInt(1000,9999);
-        registerPage.SSN.sendKeys(fakeSSN + Keys.TAB);
+        PageInitializer.registerPage.SSN.sendKeys(fakeSSN + Keys.TAB);
        // Driver.wait(1);
     }
 
     @Then("Hata mesajinin cikmadigini test eder")
     public void hataMesajininCikmadiginiTestEder() {
-        Assert.assertFalse(registerPage.ssnDogrulama.isDisplayed());
-      //  Driver.wait(1);
-    }
-
-    @And("Tarayiciyi kapatir")
-    public void tarayiciyiKapatir() {
-       // Driver.closeDriver();
+        Assert.assertTrue( PageInitializer.registerPage.ssnDogrulama.isDisplayed());
     }
 }
 

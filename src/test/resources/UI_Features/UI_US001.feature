@@ -1,4 +1,4 @@
-Feature: US001
+Feature: UI_US001
 
   @demo
   Scenario: Gecerli bir SSN, 3. ve 5. rakamdan sonra "-" icermeli ve 9 rakamdan olusmalidir.
@@ -7,4 +7,3 @@ Feature: US001
     And Register butonuna tiklar
     And SSN kutusuna uygun ssn girer
     Then Hata mesajinin cikmadigini test eder
-    And Tarayiciyi kapatir

@@ -1,6 +1,6 @@
-Feature:
+Feature: API_US001
 
-  @demo1
+  @demo
   Scenario: API kullanarak kayitli kisiler olusturun ve dogrulayin
     Given Kullanici kayit icin data olusturur
     And Kullanici kayit icin post request gonderir

@@ -16,12 +16,15 @@ public class Authentication {
         String url = "https://medunna.com/api/authenticate";
 
         Map<String, String> expectedData = new HashMap();
-        expectedData.put("username","infoTech02");
-        expectedData.put("password","Admin123.");
+        expectedData.put("username", ConfigReader.getProperty("username02"));
+        expectedData.put("password", ConfigReader.getProperty("password02"));
 
         Response response = given().contentType(ContentType.JSON).body(expectedData).when().post(url);
 
         return response.path("id_token");
+
+        //  String token = "Bearer "+ response.path("accessToken");
+
     }
 
     public static void main(String[] args) {
