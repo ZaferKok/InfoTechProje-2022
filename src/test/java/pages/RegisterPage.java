@@ -6,9 +6,10 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
 public class RegisterPage extends BasePageForAll{
-//    public RegisterPage() {
-//        PageFactory.initElements(Driver.getDriver(), this);
-//    }
+
+    //    public RegisterPage() {
+    //        PageFactory.initElements(Driver.getDriver(), this);
+    //    }
 
     @FindBy(xpath="//input[@id='ssn']")
     public WebElement SSN;

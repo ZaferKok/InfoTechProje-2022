@@ -1,13 +1,14 @@
 package stepdefinitions;
 
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import pages.PageInitializer;
-import utilities.ConfigReader;
+import utilities.CommonSteps;
 import utilities.Driver;
 
 import java.io.File;
@@ -16,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ALL_Hooks {
+
+    static int stepCount;
 
     @Before
     public void start() {
@@ -27,40 +30,23 @@ public class ALL_Hooks {
     @After
     public void tearDown(Scenario scenario) {
 
-        final byte[] picture;
-        String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-        TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
-        File file = ts.getScreenshotAs(OutputType.FILE);
-
+        byte[] picture;
         if (scenario.isFailed()) {
-
-            String destination = System.getProperty("user.dir") + "/test-output/Screenshots/failed/" + scenario.getName() + date + ".png";
-
-            try {
-                FileUtils.copyFile(file, new File(destination));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            picture = (ts.getScreenshotAs(OutputType.BYTES));
-            scenario.attach(picture, "image/png", scenario.getName());
-
-
-        } else {
-
-            String destination = System.getProperty("user.dir") + "/test-output/Screenshots/passed/" + scenario.getName() + date + ".png";
-
-            try {
-                FileUtils.copyFile(file, new File(destination));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //picture = (ts.getScreenshotAs(OutputType.BYTES));
-            //scenario.attach(picture, "image/png", scenario.getName());
-
+            picture = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(picture, "image/png", "failed" + scenario.getName());
+        }
+        else {
+            picture = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(picture, "image/png", "passed" + scenario.getName());
         }
         Driver.closeDriver();
+    }
+
+    @AfterStep
+    public void makeSlowRunning(){
+        //Driver.wait(3);
+        this.stepCount = stepCount + 1;
+        System.out.println((stepCount) + ". STEP");
     }
 
     //    @Before("@db")

@@ -7,6 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>com.medunna</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,12 +31,12 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>7.5.0</version>
+            <version>7.8.0</version>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>7.5.0</version>
+            <version>7.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.javafaker</groupId>
@@ -45,28 +46,43 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.1.0</version>
+            <version>5.2.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.3</version>
+            <version>2.13.4</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>2.12.5</version>
+            <version>2.13.4</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.7</version>
+            <version>42.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.0.0</version>
+            <version>5.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
         </dependency>
     </dependencies>
 
@@ -74,11 +90,32 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0-M7</version>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/runners/*Dunner*.java</include>
+                                <include>**/runners/*TestRunner*.java</include>
+                            </includes>
+                            <!-- <parallel>classesAndMethods</parallel>-->
+                            <!-- <useUnlimitedThreads>true</useUnlimitedThreads>-->
+                            <parallel>methods</parallel>
+                            <threadCount>2</threadCount>
+                            <perCoreThreadCount>false</perCoreThreadCount>
+
+                            <systemPropertyVariables>
+                                <extent.reporter.spark.start>true</extent.reporter.spark.start>
+                                <extent.reporter.spark.out>test-output/htmlReports/automation-test-report.html</extent.reporter.spark.out>
+                            </systemPropertyVariables>
+
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>net.masterthought</groupId>
@@ -103,3 +140,91 @@
     </build>
 
 </project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--            <plugin>-->
+        <!--                <groupId>org.apache.maven.plugins</groupId>-->
+        <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+        <!--                <version>3.0.0-M7</version>-->
+        <!--                <configuration>-->
+        <!--                    <parallel>methods</parallel>-->
+        <!--                    <perCoreThreadCount>false</perCoreThreadCount>-->
+        <!--                    <threadCountMethods>2</threadCountMethods>-->
+        <!--                    <testFailureIgnore>true</testFailureIgnore>-->
+        <!--                    <runOrder>Alphabetical</runOrder>-->
+        <!--                    <includes>-->
+        <!--                        <include>**/*Dunner.java</include>-->
+        <!--                        <include>**/*TestRunner.java</include>-->
+        <!--                    </includes>-->
+        <!--                </configuration>-->
+        <!--            </plugin>-->
+        <!--            <plugin>-->
+        <!--                <groupId>net.masterthought</groupId>-->
+        <!--                <artifactId>maven-cucumber-reporting</artifactId>-->
+        <!--                <version>5.7.1</version>-->
+        <!--                <executions>-->
+        <!--                    <execution>-->
+        <!--                        <id>execution</id>-->
+        <!--                        <phase>verify</phase>-->
+        <!--                        <goals>-->
+        <!--                            <goal>generate</goal>-->
+        <!--                        </goals>-->
+        <!--                        <configuration>-->
+        <!--                            <projectName>com.medunna</projectName>-->
+        <!--                            <projectName>Cucumber HTML Reports</projectName>-->
+        <!--                            <outputDirectory>${project.build.directory}/cucumber.json</outputDirectory>-->
+        <!--&lt;!&ndash;                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>&ndash;&gt;-->
+        <!--                            <inputDirectory>${project.build.directory}</inputDirectory>-->
+        <!--                            <jsonFiles>-->
+        <!--                                <param>**/cucumber*.json</param>-->
+        <!--                            </jsonFiles>-->
+        <!--                        </configuration>-->
+        <!--                    </execution>-->
+        <!--                </executions>-->
+        <!--            </plugin>-->
+        <!--            <plugin>-->
+        <!--                <groupId>org.apache.maven.plugins</groupId>-->
+        <!--                <artifactId>maven-failsafe-plugin</artifactId>-->
+        <!--                <version>3.0.0-M7</version>-->
+        <!--                <configuration>-->
+        <!--                    <parallel>classes</parallel>-->
+        <!--                    <forkMode>perthread</forkMode>-->
+        <!--                    <threadCount>3</threadCount>-->
+        <!--                    <reuseForks>false</reuseForks>-->
+        <!--                    <argLine>-Duser.language=en</argLine>-->
+        <!--                    <argLine>-Xmx1024m</argLine>-->
+        <!--                    <argLine>-XX:MaxPermSize=256m</argLine>-->
+        <!--                    <argLine>-Dfile.encoding=UTF-8</argLine>-->
+        <!--                    <useFile>false</useFile>-->
+        <!--                    <testFailureIgnore>true</testFailureIgnore>-->
+        <!--                    <skipTests>false</skipTests>-->
+        <!--                    <includes>-->
+        <!--                        <include>**/runners/*TestRunner*.java</include>-->
+        <!--                    </includes>-->
+        <!--                </configuration>-->
+        <!--            </plugin>-->
+        <!--            <plugin>-->
+        <!--                <groupId>org.apache.maven.plugins</groupId>-->
+        <!--                <artifactId>maven-surefire-plugin</artifactId>-->
+        <!--                <version>2.22.0</version>-->
+        <!--                <configuration>-->
+        <!--                    <parallel>methods</parallel>-->
+        <!--                    <useUnlimitedThreads>true</useUnlimitedThreads>-->
+        <!--                </configuration>-->
+        <!--            </plugin>-->

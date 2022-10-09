@@ -26,6 +26,8 @@ public class UI_US001 {
 
     @And("Ana sayfa giris ikonuna tiklar")
     public void anaSayfaGirisIkonunaTiklar() {
+        String elementCssProperty = PageInitializer.homePage.userIcon.getCssValue("color");
+        System.out.println("Elementin Rengi = " + elementCssProperty);
         PageInitializer.homePage.userIcon.click();
         //Driver.wait(1);
     }
